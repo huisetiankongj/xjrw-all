@@ -19,6 +19,18 @@ public class ThreadPoolTest {
         Thread.sleep(10000);
     }
 
+    @Test
+    public void cacheThreadPoolTest() throws InterruptedException {
+        System.out.println("===========");
+        ExecutorService service = Executors.newCachedThreadPool();
+        PersonRunnable p1 = new PersonRunnable();
+        new Thread(p1,"t1").start();
+        service.execute(p1);
+        service.shutdown();
+        //junit主线程结束子线程也会跟着结束
+        Thread.sleep(10000);
+    }
+
     public static void main(String[] args) {
         System.out.println("===========");
         ExecutorService service = Executors.newFixedThreadPool(2);
